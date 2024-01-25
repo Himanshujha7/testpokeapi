@@ -1,0 +1,33 @@
+.PokemonList-wrapper{
+    
+    width: 100%;
+    margin: 10px auto 0px;
+    
+}
+.Card-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    
+}
+.button-wrapper button{
+    outline: none;
+    border: none;
+    padding: 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    margin: 0px 20px;
+    background-color: #f1f1f1;
+    
+
+}
+.button-wrapper button:hover{
+    background-color: rgb(255, 255, 255);
+}
+.button-wrapper{
+    display: flex;
+    justify-content:center;
+    
+    
+}

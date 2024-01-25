@@ -1,0 +1,23 @@
+#pokemon-name-search{
+    padding: 10px;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+    font-size: 18px;
+
+    
+}
+#pokemon-name-search:hover{
+    background-color: rgb(250, 250, 250);
+}
+
+.search-wrapper{
+    width:600px;
+    height: 50px;
+    padding: 10px;
+    margin: 0px auto;
+    display: flex;
+    
+}
