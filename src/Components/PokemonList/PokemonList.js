@@ -6,36 +6,44 @@ import './PokemonList.css'
 function PokemonList(){
     const [pokemonlist, setpokemonlist] = useState([]); 
     const [isDownloading, setisDownloading] = useState(true);
-    const [next, setnext] = useState(false);
-    const [prev, setprev] = useState(false);
-    const [url, seturl] = useState("https://pokeapi.co/api/v2/pokemon");
+    const [pokedexurl, setpokedexurl] = useState("https://pokeapi.co/api/v2/pokemon");
+    const [nexturl, setnexturl] = useState("");
+    const [prevurl, setprevurl] = useState("");
+    const [x, setx] = useState(1);
 
 
+    // const [PokemonListState, setPokemonListState] = useState({
+    //     pokemonlist_t: [],
+    //     isDownloading_t: true,
+    //     pokedexurl_t: "https://pokeapi.co/api/v2/pokemon",
+    //     nexturl_t: "",
+    //     prevurl_t: "",
+    //     x_t: 1
+    // })
     
-
+   
+    
     async function downloadpokemon() {
+        // setPokemonListState({...PokemonListState, isDownloading: true});
         
-        const response = await axios.get(url);
-        let pokemonResults = response.data.results;
-        const nexturl = response.data.next
-        const prevurl = response.data.previous
-        let pok = ""
-        if (next == true){
-            seturl(nexturl);
-            setnext(false);
-            
-        }else if(prev == true){  
-            seturl(prevurl);
-            setprev(false);
-        }
-        console.log(next)
-        console.log(prev)
-        console.log(url)
-        console.log(nexturl)
-        console.log(prevurl)
+        setisDownloading(true)
 
+        
+        
+        const response = await axios.get(pokedexurl);
+        
+        const pokemonResults = response.data.results;
+        
+        
+        
+        // setPokemonListState(()=>({...PokemonListState, nexturl: response.data.next, prevurl: response.data.previous}));
+        
+
+        setnexturl(response.data.next)
+        setprevurl(response.data.previous)
         
         const pokemonResultPromise = pokemonResults.map((pokemon) => axios.get(pokemon.url));
+        
         const pokemonData = await axios.all(pokemonResultPromise);
         const list = pokemonData.map((pokeData) => {
             const pokemon = pokeData.data;
@@ -45,37 +53,41 @@ function PokemonList(){
                 image: pokemon.sprites.other.dream_world.front_default,
                 type: pokemon.types
             }
-            })
+            })   
+            
+        // setPokemonListState({...PokemonListState, pokemonlist: list, isDownloading: false}); 
         
         setpokemonlist(list)
-        
-        
-        
-    }
-
-            
-    useEffect(()=> {
-        
-        downloadpokemon();
         setisDownloading(false);
+    }
     
-    }, [next, prev, url]);
+
+    useEffect(()=> {
+        downloadpokemon();
+    }, [pokedexurl]);
     
     
     return(
     
         <div className="PokemonList-wrapper">
             <div className="button-wrapper">
-                <button onClick={()=> setprev(true)}>PREVIOUS</button>
-                <button onClick={()=> setnext(true)}>NEXT</button>
                 
+                <button onClick={()=>(setpokedexurl(prevurl), setx(x-1))} disabled={prevurl==null}>PREVIOUS</button>
+                <span>PAGE {x}</span>
+                <button onClick={()=>(setpokedexurl(nexturl), setx(x+1))} disabled={nexturl==null}>NEXT</button>
+                {/* <button onClick={setPokemonListState({...PokemonListState, pokedexurl: prevurl })} disabled={PokemonListState.prevurl == null}>PREVIOUS</button>
+                <span>PAGE {PokemonListState.x}</span>
+                <button onClick={setPokemonListState({...PokemonListState, pokedexurl: nexturl })} disabled={PokemonListState.prevurl == null}>NEXT</button>
+                 */}
             </div>
             <h1>Pokemon List</h1>
             <div className="Card-wrapper">
             
             {(isDownloading)? "Downloading...": 
                 pokemonlist.map((p) => <Pokemon name={p.name} image={p.image} id={p.id} />)}
+                
             </div>
+            
             
         </div>
     )

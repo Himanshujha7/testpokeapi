@@ -3,12 +3,22 @@
     width: 100%;
     margin: 10px auto 0px;
     
+    
+}
+.button-wrapper span{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 18px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin: 10px;
+
 }
 .Card-wrapper{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content:space-around;
     
 }
 .button-wrapper button{
@@ -17,7 +27,7 @@
     padding: 20px;
     cursor: pointer;
     border-radius: 20px;
-    margin: 0px 20px;
+    
     background-color: #f1f1f1;
     
 
