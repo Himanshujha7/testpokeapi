@@ -3,7 +3,7 @@ import PokemonList from "./Components/PokemonList/PokemonList";
 // import PokemonList from "./Components/PokemonList/PokemonList";
 import CustomRoutes from "./routes/CustomRoutes";
 import "./App.css"
-
+// ghghgfht
  
 
 function App() {
